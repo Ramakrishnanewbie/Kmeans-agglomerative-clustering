@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Config
+metadata:
+  name: data-config
+spec:
+  source:
+    type: gcs
+    path: gs://source-bucket-task-1/csv/data.csv
+  processing:
+    format: csv
+    delimiter: ","
+    header: true
