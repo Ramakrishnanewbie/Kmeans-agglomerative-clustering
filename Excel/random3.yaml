@@ -1,0 +1,3 @@
+# This is a placeholder YAML configuration for data.csv
+source: gs://source-bucket-task-1/csv/data.csv
+description: Configuration for data processing
