@@ -1,0 +1,33 @@
+dag_attr:
+  tags:
+    - name: "data"
+  alert_after_run_minutes: 15
+  events:
+     updates_datasets:
+       - name: "data"
+workflow_type: "dataflow"
+ 
+schedules:
+  - interval: "*/15 * * * *"
+    timezone: "UTC"
+    trigger_type:
+      within_dag: true
+    executions:
+      gcs_to_bigquery:
+        source:
+          landing_bucket: "source-bucket-task-1"
+          file_pattern: "csv/data.csv"
+          field_delimiter: ","
+          skip_leading_rows: 1
+          max_bad_records: 0
+          is_truncate: false
+          quote_char: "\""
+        dataflow:
+          max_workers: 2
+          disk_size_gb: 10
+          machine_type: "n1-standard-2"
+        sink:
+          raw_dataset: "raw"
+          raw_table: "data"
+          archive_bucket: ""
+          error_bucket: ""
